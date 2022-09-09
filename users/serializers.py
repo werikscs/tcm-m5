@@ -54,7 +54,7 @@ class StaffUserSerializer(serializers.Serializer):
     is_staff = serializers.BooleanField()    
     is_superuser = serializers.BooleanField(read_only=True)
     date_joined = serializers.DateTimeField(read_only=True)
-    cart = CartSerializer()
+    
 
     def create(self, validated_data):
         user_obj = User.objects.create_user(**validated_data)
