@@ -1,4 +1,7 @@
 from rest_framework import serializers
+from carts.models import Cart
+
+from carts.serializers import CartSerializer
 
 from .models import User
 
@@ -17,7 +20,10 @@ class UserSerializer(serializers.Serializer):
     date_joined = serializers.DateTimeField(read_only=True)
 
     def create(self, validated_data):
-        return User.objects.create_user(**validated_data)
+        user_obj = User.objects.create_user(**validated_data)
+        Cart.objects.create(subtotal=0, user=user_obj)
+        
+        return user_obj
         
     def validate_email(self, value):
          email_exists = User.objects.filter(email__iexact=value).exists()
@@ -48,9 +54,13 @@ class StaffUserSerializer(serializers.Serializer):
     is_staff = serializers.BooleanField()    
     is_superuser = serializers.BooleanField(read_only=True)
     date_joined = serializers.DateTimeField(read_only=True)
+    cart = CartSerializer()
 
     def create(self, validated_data):
-        return User.objects.create_user(**validated_data)
+        user_obj = User.objects.create_user(**validated_data)
+        Cart.objects.create(subtotal=0, user=user_obj)
+        
+        return user_obj
         
     def validate_email(self, value):
          email_exists = User.objects.filter(email__iexact=value).exists()
