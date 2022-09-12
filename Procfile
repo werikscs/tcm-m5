@@ -1,0 +1,1 @@
+web: gunicorn world_cup_ecommerce.wsgi --log-level debug

@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 import os
 from pathlib import Path
 
+import dj_database_url
 import environ
 
 env = environ.Env(
@@ -32,7 +33,7 @@ SECRET_KEY = env("SECRET_KEY")
 
 DEBUG = env("DEBUG")
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["tcm-m5.herokuapp.com", "localhost"]
 
 
 # Application definition
@@ -94,6 +95,15 @@ DATABASES = {
         "PORT": 5432,
     }
 }
+
+DATABASE_URL = os.getenv("DATABASE_URL")
+
+if DATABASE_URL:
+    db = dj_database_url.config(default=DATABASE_URL)
+
+    DATABASES["default"].update(db)
+
+    DEBUG = False
 
 
 # Password validation
