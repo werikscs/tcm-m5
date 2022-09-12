@@ -6,10 +6,11 @@ from discounts.serializers import DiscountSerializer
 from categories.serializers import CategorySerializer
 
 class ProductSerializer(serializers.ModelSerializer):
-    category = CategorySerializer(read_only=True)
-    discount = DiscountSerializer(read_only=True)
+    product_category = CategorySerializer(read_only=True)
+    product_discount = DiscountSerializer(read_only=True)
+    category_id = serializers.IntegerField(write_only=True, default=1)
+    discount_id = serializers.IntegerField(write_only=True, default=1)
 
     class Meta:
         model = Product
         fields ="__all__"
-        
