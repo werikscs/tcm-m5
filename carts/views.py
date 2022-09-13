@@ -8,14 +8,14 @@ from rest_framework.authentication import TokenAuthentication
 
 # from .mixins import SerializerByMethodMixin
 from .models import Cart
-# from .permissions import IsAdminOrOwner, IsAdminToGet
+from .permissions import IsUserOwnerOrAdminOrStaff
 
 from .serializers import CartSerializer
 
 class CartView(generics.RetrieveAPIView):
     queryset = Cart.objects.all()
-    # authentication_classes = [TokenAuthentication]
-    # permission_classes = [GetOrIsStaff]
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsUserOwnerOrAdminOrStaff]
     serializer_class = CartSerializer
     lookup_url_kwarg = 'cart_id'
 
