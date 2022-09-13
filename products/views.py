@@ -19,9 +19,9 @@ class ProductView(generics.ListCreateAPIView):
 
     def perform_create(self, serializer):
         try:
-            category_obj = get_object_or_404(Category, pk=self.request.data["category_id"])
+            category_obj = Category.objects.filter(pk__in=self.request.data["category_id"])
         except:
-            category_obj = get_object_or_404(Category, pk=1)
+            category_obj = Category.objects.filter(pk=1)
         try:
             self.request.data["discount_id"]
             discount_obj = get_object_or_404(Discount, pk=self.request.data["discount_id"])
@@ -39,9 +39,9 @@ class ProductDetailView(generics.RetrieveUpdateDestroyAPIView):
     def perform_update(self, serializer):
 
         try:
-            category_obj = get_object_or_404(Category, pk=self.request.data["category_id"])
+            category_obj = Category.objects.filter(pk__in=self.request.data["category_id"])
         except:
-            category_obj = get_object_or_404(Category, pk=1)
+            category_obj = Category.objects.filter(pk=1)
         try:
             self.request.data["discount_id"]
             discount_obj = get_object_or_404(Discount, pk=self.request.data["discount_id"])
