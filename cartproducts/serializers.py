@@ -3,11 +3,13 @@ import ipdb
 from .models import Cartproducts
 from products.serializers import ProductSerializer
 from carts.models import Cart
+from discounts.models import Discount
 
 class CartProductsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Cartproducts
         fields = "__all__"
+        
         
     def create(self, validated_data):
         
@@ -28,9 +30,11 @@ class CartProductsSerializer(serializers.ModelSerializer):
         else:
             cartproduct_obj = Cartproducts.objects.create(**validated_data)
             new_qtd = validated_data.get('quantity') or 1
-          
+
+
         cart_obj = Cart.objects.get(id=validated_data['cart'].id)
-        cart_obj.subtotal += cartproduct_obj.productValue*new_qtd
+        discount_obj = Discount.objects.get(id=cartproduct_obj.product.discount_id)
+        cart_obj.subtotal += cartproduct_obj.product.price*discount_obj.discount_percent*new_qtd
         cart_obj.save()
          
         return cartproduct_obj 

@@ -26,10 +26,10 @@ class CartProductsView(generics.CreateAPIView):
         
         product_obj = get_object_or_404(Product, id=self.request.data["product"])
         cart_obj = get_object_or_404(Cart, id=self.request.data["cart"])        
-        discount_obj = get_object_or_404(Discount, id=product_obj.discount_id)
+        
 
 
-        serializer.save(productValue=product_obj.price*discount_obj.discount_percent)
+        serializer.save()
     
 class CartProductsDetailView(generics.DestroyAPIView):
      queryset = Cartproducts.objects.all()
@@ -37,15 +37,16 @@ class CartProductsDetailView(generics.DestroyAPIView):
      lookup_url_kwarg = 'cartproduct_id'
 
      def perform_destroy(self, instance):
-        # ipdb.set_trace()
+        
         qtd_remove = self.request.data.get('quantity')
+        discount_obj = Discount.objects.get(id=instance.product.discount_id)
         subtotal = 0
         if qtd_remove and instance.quantity > qtd_remove:
             instance.quantity -= qtd_remove
-            subtotal = instance.productValue*qtd_remove
+            subtotal = instance.product.price*discount_obj.discount_percent*qtd_remove
             instance.save()            
         else:           
-            subtotal = instance.productValue*instance.quantity    
+            subtotal = instance.product.price*discount_obj.discount_percent*instance.quantity    
             instance.delete()
 
         cart_obj = Cart.objects.get(id=instance.cart.id)
