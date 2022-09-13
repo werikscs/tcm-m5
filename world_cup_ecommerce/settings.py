@@ -33,7 +33,7 @@ SECRET_KEY = env("SECRET_KEY")
 
 DEBUG = env("DEBUG")
 
-ALLOWED_HOSTS = ["tcm-m5.herokuapp.com", "localhost"]
+ALLOWED_HOSTS = ["tcm-m5.herokuapp.com", "127.0.0.1"]
 
 
 # Application definition
@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     "categories",
     "discounts",
     "products",
+    "cartproducts",
 ]
 
 MIDDLEWARE = [
