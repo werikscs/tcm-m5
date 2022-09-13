@@ -12,7 +12,7 @@ from .models import Cart
 
 from .serializers import CartSerializer
 
-class CartView(generics.RetrieveUpdateAPIView):
+class CartView(generics.RetrieveAPIView):
     queryset = Cart.objects.all()
     # authentication_classes = [TokenAuthentication]
     # permission_classes = [GetOrIsStaff]

@@ -27,6 +27,14 @@ class CartProductsView(generics.CreateAPIView):
         product_obj = get_object_or_404(Product, id=self.request.data["product"])
         cart_obj = get_object_or_404(Cart, id=self.request.data["cart"])        
         discount_obj = get_object_or_404(Discount, id=product_obj.discount_id)
-        
+
+
         serializer.save(productValue=product_obj.price*discount_obj.discount_percent)
     
+class CartProductsDetailView(generics.DestroyAPIView):
+     queryset = Cartproducts.objects.all()
+     serializer_class = CartProductsSerializer
+
+     def perform_destroy(self, instance):
+        instance.delete()
+     
