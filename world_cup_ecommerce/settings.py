@@ -14,24 +14,20 @@ import os
 from pathlib import Path
 
 import dj_database_url
-import environ
+import dotenv
 
-env = environ.Env(
-    # type casting, valor padrão para a variável
-    DEBUG=(bool, False)
-)
+dotenv.load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-environ.Env.read_env(BASE_DIR / ".env")
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = env("SECRET_KEY")
+SECRET_KEY = os.getenv("SECRET_KEY")
 
-DEBUG = env("DEBUG")
+DEBUG = True
 
 ALLOWED_HOSTS = ["tcm-m5.herokuapp.com", "127.0.0.1"]
 
@@ -92,10 +88,10 @@ WSGI_APPLICATION = "world_cup_ecommerce.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": env("DB_NAME"),
-        "USER": env("DB_USER"),
-        "PASSWORD": env("DB_PASSWORD"),
-        "HOST": "127.0.0.1",
+        "NAME": os.getenv("POSTGRES_DB"),
+        "USER": os.getenv("POSTGRES_USER"),
+        "PASSWORD": os.getenv("POSTGRES_PASSWORD"),
+        "HOST": "localhost",
         "PORT": 5432,
     }
 }
