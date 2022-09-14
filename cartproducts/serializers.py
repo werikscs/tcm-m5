@@ -16,19 +16,21 @@ class CartProductsSerializer(serializers.ModelSerializer):
 
         cart = validated_data.get("cart")
         product = validated_data.get("product")
-        quantity_to_cart = validated_data.get("quantity")
+        quantity_to_cart = validated_data.get("quantity_in_cart")
 
-        cartproduct_obj = Cartproducts.objects.filter(cart_id=cart, product_id=product)
+        cartproduct_obj = Cartproducts.objects.filter(
+            cart_id=cart.id, product_id=product.id
+        ).first()
 
         quantity_to_subtotal = 0
 
         if cartproduct_obj:
             if quantity_to_cart:
-                cartproduct_obj.quantity += quantity_to_cart
+                cartproduct_obj.quantity_in_cart += quantity_to_cart
                 quantity_to_subtotal = quantity_to_cart
 
             else:
-                cartproduct_obj.quantity += 1
+                cartproduct_obj.quantity_in_cart += 1
                 quantity_to_subtotal = 1
 
             cartproduct_obj.save()
@@ -56,4 +58,4 @@ class ListCartProductsSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Cartproducts
-        fields = ["id", "product", "quantity"]
+        fields = ["id", "product", "quantity_in_cart"]
