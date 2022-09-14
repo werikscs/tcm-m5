@@ -6,4 +6,4 @@ from .models import OrderDetails
 class OrderDetailsSerializer(serializers.ModelSerializer):
     class Meta:
         model = OrderDetails
-        fields = "__all__"
+        fields = ["id", "product", "quantity_in_order", "final_price"]
