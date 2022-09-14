@@ -1,11 +1,11 @@
-from dataclasses import field
-
-import order_details
 from cartproducts.models import Cartproducts
 from carts.models import Cart
+from django.shortcuts import get_object_or_404
 from order_details.models import OrderDetails
+from order_details.serializers import OrderDetailsSerializer
 from rest_framework import serializers
 from rest_framework.exceptions import APIException
+from users.models import User
 
 from .models import Order
 
@@ -14,18 +14,29 @@ class QuantityOrderError(APIException):
     status_code = 400
 
 
+class EmptyCartOrderError(APIException):
+    status_code = 400
+
+
 class OrderSerializer(serializers.ModelSerializer):
+    order_details = OrderDetailsSerializer(many=True, read_only=True)
+
     class Meta:
         model = Order
-        fields = "__all__"
-        read_only_fields = ["id", "user", "order_total"]
+        fields = ["id", "user", "order_total", "created_at", "order_details"]
+        read_only_fields = ["id", "user", "order_total", "created_at"]
 
     def create(self, validated_data: dict):
 
         user_id = self.context.get("view").kwargs.get("user_id")
+        get_object_or_404(User, pk=user_id)
+
         user_cart = Cart.objects.get(user_id=user_id)
 
         user_cart_products = Cartproducts.objects.filter(cart_id=user_cart.id)
+
+        if len(user_cart_products) == 0:
+            raise EmptyCartOrderError({"detail": "Cart is empty"})
 
         # verificando se a quantidade de produtos no estoque é suficiente
 
