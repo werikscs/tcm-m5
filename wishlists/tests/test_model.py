@@ -1,15 +1,23 @@
 from django.test import TestCase
+from wishlists.models import Wishlist
+from users.models import User
 from categories.models import Category
 from discounts.models import Discount
-
 from products.models import Product
 from faker import Faker
 
 fake = Faker()
 
-class ProductTest(TestCase):
+class WishlistTest(TestCase):
     @classmethod
     def setUpTestData(cls) -> None:
+        cls.user_test = {            
+            "first_name": fake.name(),
+            "last_name": fake.name(),
+            "username": "kenzinho",
+            "email": "kenzinho@gmail.com",
+            "birthdate": "1999-09-09"
+            }
         cls.product_test = {
             "name": fake.name(),
             "description": "lore ipsum est",
@@ -23,23 +31,17 @@ class ProductTest(TestCase):
             "description": "lore ipsum est",
             "discount_percent": 10.5
         }
+        cls.user = User.objects.create(**cls.user_test)
         cls.discount = Discount.objects.create(**cls.discount_test)
         cls.category = Category.objects.create(**cls.category_test)
         cls.product = Product.objects.create(**cls.product_test, discount_id=cls.discount.id, category_id=cls.category.id)
+        cls.wishlist = Wishlist.objects.create(user=cls.user, product=cls.product )
 
 
-    def test_product_fields(self):
+    def test_relation_with_user(self):
 
-        self.assertEqual(self.product.name, self.product_test["name"], 'verificando name')
-        self.assertEqual(self.product.description, self.product_test["description"], 'verificando description')
-        self.assertEqual(self.product.quantity, self.product_test["quantity"], 'verificando quantity')
-        self.assertEqual(self.product.price, self.product_test["price"], 'verificando price')
-    
-    def test_relation_with_discount(self):
+        self.assertIs(self.wishlist.user, self.user, 'testando relação de wishlist com user')
 
-        self.assertIs(self.product.discount, self.discount, 'verificando relação product/discount')
-
-    def test_relation_with_category(self):
-
-        self.assertIs(self.product.category, self.category, 'verificando relação product/category')
-
+    def test_relation_with_product(self):
+        
+        self.assertIs(self.wishlist.product, self.product, 'testando relação de wishlist com product')
