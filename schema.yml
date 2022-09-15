@@ -1,0 +1,1516 @@
+openapi: 3.0.3
+info:
+  title: ECOMMERCE WORLD CUP 2022 API
+  version: 1.0.0
+  description: Projeto Ecommerce TCM M5 T10
+paths:
+  /api/cart/{cart_id}/:
+    get:
+      operationId: cart_retrieve
+      parameters:
+      - in: path
+        name: cart_id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - cart
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cart'
+          description: ''
+  /api/cart/add/:
+    post:
+      operationId: cart_add_create
+      tags:
+      - cart
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CartProducts'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CartProducts'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CartProducts'
+        required: true
+      security:
+      - tokenAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CartProducts'
+          description: ''
+  /api/cart/remove/{cartproduct_id}/:
+    delete:
+      operationId: cart_remove_destroy
+      parameters:
+      - in: path
+        name: cartproduct_id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - cart
+      security:
+      - tokenAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/category/:
+    get:
+      operationId: category_list
+      tags:
+      - category
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Category'
+          description: ''
+    post:
+      operationId: category_create
+      tags:
+      - category
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Category'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Category'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Category'
+        required: true
+      security:
+      - tokenAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Category'
+          description: ''
+  /api/category/{category_id}/:
+    get:
+      operationId: category_retrieve
+      parameters:
+      - in: path
+        name: category_id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - category
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Category'
+          description: ''
+    put:
+      operationId: category_update
+      parameters:
+      - in: path
+        name: category_id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - category
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Category'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Category'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Category'
+        required: true
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Category'
+          description: ''
+    patch:
+      operationId: category_partial_update
+      parameters:
+      - in: path
+        name: category_id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - category
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedCategory'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedCategory'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedCategory'
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Category'
+          description: ''
+    delete:
+      operationId: category_destroy
+      parameters:
+      - in: path
+        name: category_id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - category
+      security:
+      - tokenAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/discount/:
+    get:
+      operationId: discount_list
+      tags:
+      - discount
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Discount'
+          description: ''
+    post:
+      operationId: discount_create
+      tags:
+      - discount
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Discount'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Discount'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Discount'
+        required: true
+      security:
+      - tokenAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Discount'
+          description: ''
+  /api/discount/{id}/:
+    get:
+      operationId: discount_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this discount.
+        required: true
+      tags:
+      - discount
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Discount'
+          description: ''
+    put:
+      operationId: discount_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this discount.
+        required: true
+      tags:
+      - discount
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Discount'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Discount'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Discount'
+        required: true
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Discount'
+          description: ''
+    patch:
+      operationId: discount_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this discount.
+        required: true
+      tags:
+      - discount
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedDiscount'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedDiscount'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedDiscount'
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Discount'
+          description: ''
+    delete:
+      operationId: discount_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this discount.
+        required: true
+      tags:
+      - discount
+      security:
+      - tokenAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/order/{user_id}/:
+    get:
+      operationId: order_list
+      parameters:
+      - in: path
+        name: user_id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - order
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Order'
+          description: ''
+    post:
+      operationId: order_create
+      parameters:
+      - in: path
+        name: user_id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - order
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Order'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Order'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Order'
+      security:
+      - tokenAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+          description: ''
+  /api/order/{user_id}/{order_id}/:
+    get:
+      operationId: order_retrieve
+      parameters:
+      - in: path
+        name: order_id
+        schema:
+          type: integer
+        required: true
+      - in: path
+        name: user_id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - order
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+          description: ''
+  /api/products/:
+    get:
+      operationId: products_list
+      tags:
+      - products
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Product'
+          description: ''
+    post:
+      operationId: products_create
+      tags:
+      - products
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Product'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Product'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Product'
+        required: true
+      security:
+      - tokenAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+          description: ''
+  /api/products/{id}/:
+    get:
+      operationId: products_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this product.
+        required: true
+      tags:
+      - products
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductDetail'
+          description: ''
+    put:
+      operationId: products_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this product.
+        required: true
+      tags:
+      - products
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductDetail'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ProductDetail'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ProductDetail'
+        required: true
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductDetail'
+          description: ''
+    patch:
+      operationId: products_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this product.
+        required: true
+      tags:
+      - products
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedProductDetail'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedProductDetail'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedProductDetail'
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductDetail'
+          description: ''
+    delete:
+      operationId: products_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this product.
+        required: true
+      tags:
+      - products
+      security:
+      - tokenAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/users/:
+    get:
+      operationId: users_list
+      tags:
+      - users
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+          description: ''
+    post:
+      operationId: users_create
+      tags:
+      - users
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/User'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/User'
+        required: true
+      security:
+      - tokenAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: ''
+  /api/users/{user_id}/:
+    get:
+      operationId: users_retrieve
+      parameters:
+      - in: path
+        name: user_id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - users
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: ''
+    put:
+      operationId: users_update
+      parameters:
+      - in: path
+        name: user_id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - users
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          description: No response body
+    patch:
+      operationId: users_partial_update
+      parameters:
+      - in: path
+        name: user_id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - users
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedPatchUser'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedPatchUser'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedPatchUser'
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PatchUser'
+          description: ''
+  /api/users/{user_id}/deleteorchange/:
+    get:
+      operationId: users_deleteorchange_retrieve
+      parameters:
+      - in: path
+        name: user_id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - users
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteOrChangeUser'
+          description: ''
+    put:
+      operationId: users_deleteorchange_update
+      parameters:
+      - in: path
+        name: user_id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - users
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeleteOrChangeUser'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/DeleteOrChangeUser'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/DeleteOrChangeUser'
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteOrChangeUser'
+          description: ''
+    patch:
+      operationId: users_deleteorchange_partial_update
+      parameters:
+      - in: path
+        name: user_id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - users
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedDeleteOrChangeUser'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedDeleteOrChangeUser'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedDeleteOrChangeUser'
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteOrChangeUser'
+          description: ''
+  /api/users/{user_id}/wishlist/:
+    get:
+      operationId: users_wishlist_list
+      parameters:
+      - in: path
+        name: user_id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - users
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/WishlistGet'
+          description: ''
+    post:
+      operationId: users_wishlist_create
+      parameters:
+      - in: path
+        name: user_id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - users
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Wishlist'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Wishlist'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Wishlist'
+        required: true
+      security:
+      - tokenAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Wishlist'
+          description: ''
+  /api/users/{user_id}/wishlist/{wishlist_id}/:
+    delete:
+      operationId: users_wishlist_destroy
+      parameters:
+      - in: path
+        name: user_id
+        schema:
+          type: integer
+        required: true
+      - in: path
+        name: wishlist_id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - users
+      security:
+      - tokenAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/users/login/:
+    post:
+      operationId: users_login_create
+      tags:
+      - users
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/AuthToken'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/AuthToken'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AuthToken'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthToken'
+          description: ''
+  /api/users/registerstaff/:
+    post:
+      operationId: users_registerstaff_create
+      tags:
+      - users
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StaffUser'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/StaffUser'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/StaffUser'
+        required: true
+      security:
+      - tokenAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StaffUser'
+          description: ''
+components:
+  schemas:
+    AuthToken:
+      type: object
+      properties:
+        username:
+          type: string
+          writeOnly: true
+        password:
+          type: string
+          writeOnly: true
+        token:
+          type: string
+          readOnly: true
+      required:
+      - password
+      - token
+      - username
+    Cart:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        subtotal:
+          type: string
+          readOnly: true
+        user:
+          type: integer
+          readOnly: true
+        cartproducts:
+          type: array
+          items:
+            $ref: '#/components/schemas/ListCartProducts'
+          readOnly: true
+      required:
+      - cartproducts
+      - id
+      - subtotal
+      - user
+    CartProducts:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        quantity_in_cart:
+          type: integer
+          maximum: 2147483647
+          minimum: 1
+        cart:
+          type: integer
+        product:
+          type: integer
+      required:
+      - cart
+      - id
+      - product
+    Category:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 50
+      required:
+      - id
+      - name
+    DeleteOrChangeUser:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        username:
+          type: string
+          readOnly: true
+        email:
+          type: string
+          readOnly: true
+        first_name:
+          type: string
+          readOnly: true
+        last_name:
+          type: string
+          readOnly: true
+        birthdate:
+          type: string
+          format: date
+          readOnly: true
+        is_active:
+          type: boolean
+          title: Active
+          description: Designates whether this user should be treated as active. Unselect
+            this instead of deleting accounts.
+        is_staff:
+          type: boolean
+          title: Staff status
+          description: Designates whether the user can log into this admin site.
+        is_superuser:
+          type: boolean
+          readOnly: true
+          title: Superuser status
+          description: Designates that this user has all permissions without explicitly
+            assigning them.
+        date_joined:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - birthdate
+      - date_joined
+      - email
+      - first_name
+      - id
+      - is_superuser
+      - last_name
+      - username
+    Discount:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        description:
+          type: string
+          maxLength: 150
+        discount_percent:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,1}(?:\.\d{0,2})?$
+      required:
+      - description
+      - discount_percent
+      - id
+    ListCartProducts:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        product:
+          allOf:
+          - $ref: '#/components/schemas/Product'
+          readOnly: true
+        quantity_in_cart:
+          type: integer
+          maximum: 2147483647
+          minimum: 1
+      required:
+      - id
+      - product
+    Order:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        user:
+          type: integer
+          readOnly: true
+        order_total:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        order_details:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderDetails'
+          readOnly: true
+      required:
+      - created_at
+      - id
+      - order_details
+      - order_total
+      - user
+    OrderDetails:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        product:
+          type: integer
+        quantity_in_order:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+        final_price:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+      required:
+      - id
+      - product
+    PatchUser:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        username:
+          type: string
+          maxLength: 20
+        email:
+          type: string
+          maxLength: 127
+        first_name:
+          type: string
+          maxLength: 50
+        last_name:
+          type: string
+          maxLength: 50
+        birthdate:
+          type: string
+          format: date
+        is_active:
+          type: boolean
+          readOnly: true
+          title: Active
+          description: Designates whether this user should be treated as active. Unselect
+            this instead of deleting accounts.
+        is_staff:
+          type: boolean
+          readOnly: true
+          title: Staff status
+          description: Designates whether the user can log into this admin site.
+        is_superuser:
+          type: boolean
+          readOnly: true
+          title: Superuser status
+          description: Designates that this user has all permissions without explicitly
+            assigning them.
+        date_joined:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - birthdate
+      - date_joined
+      - email
+      - first_name
+      - id
+      - is_active
+      - is_staff
+      - is_superuser
+      - last_name
+      - username
+    PatchedCategory:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 50
+    PatchedDeleteOrChangeUser:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        username:
+          type: string
+          readOnly: true
+        email:
+          type: string
+          readOnly: true
+        first_name:
+          type: string
+          readOnly: true
+        last_name:
+          type: string
+          readOnly: true
+        birthdate:
+          type: string
+          format: date
+          readOnly: true
+        is_active:
+          type: boolean
+          title: Active
+          description: Designates whether this user should be treated as active. Unselect
+            this instead of deleting accounts.
+        is_staff:
+          type: boolean
+          title: Staff status
+          description: Designates whether the user can log into this admin site.
+        is_superuser:
+          type: boolean
+          readOnly: true
+          title: Superuser status
+          description: Designates that this user has all permissions without explicitly
+            assigning them.
+        date_joined:
+          type: string
+          format: date-time
+          readOnly: true
+    PatchedDiscount:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        description:
+          type: string
+          maxLength: 150
+        discount_percent:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,1}(?:\.\d{0,2})?$
+    PatchedPatchUser:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        username:
+          type: string
+          maxLength: 20
+        email:
+          type: string
+          maxLength: 127
+        first_name:
+          type: string
+          maxLength: 50
+        last_name:
+          type: string
+          maxLength: 50
+        birthdate:
+          type: string
+          format: date
+        is_active:
+          type: boolean
+          readOnly: true
+          title: Active
+          description: Designates whether this user should be treated as active. Unselect
+            this instead of deleting accounts.
+        is_staff:
+          type: boolean
+          readOnly: true
+          title: Staff status
+          description: Designates whether the user can log into this admin site.
+        is_superuser:
+          type: boolean
+          readOnly: true
+          title: Superuser status
+          description: Designates that this user has all permissions without explicitly
+            assigning them.
+        date_joined:
+          type: string
+          format: date-time
+          readOnly: true
+    PatchedProductDetail:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        product_category:
+          type: array
+          items:
+            $ref: '#/components/schemas/Category'
+          readOnly: true
+        product_discount:
+          allOf:
+          - $ref: '#/components/schemas/Discount'
+          readOnly: true
+        category_id:
+          type: array
+          items:
+            type: integer
+            minimum: 1
+          writeOnly: true
+        discount_id:
+          type: integer
+          writeOnly: true
+        name:
+          type: string
+          maxLength: 50
+        description:
+          type: string
+          maxLength: 100
+        quantity:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+        price:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+    Product:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        product_category:
+          type: array
+          items:
+            $ref: '#/components/schemas/Category'
+          readOnly: true
+        product_discount:
+          allOf:
+          - $ref: '#/components/schemas/Discount'
+          readOnly: true
+        category_id:
+          type: array
+          items:
+            type: integer
+            minimum: 1
+          writeOnly: true
+          default:
+          - 1
+        discount_id:
+          type: integer
+          writeOnly: true
+          default: 1
+        name:
+          type: string
+          maxLength: 50
+        description:
+          type: string
+          maxLength: 100
+        quantity:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+        price:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+      required:
+      - description
+      - id
+      - name
+      - price
+      - product_category
+      - product_discount
+      - quantity
+    ProductDetail:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        product_category:
+          type: array
+          items:
+            $ref: '#/components/schemas/Category'
+          readOnly: true
+        product_discount:
+          allOf:
+          - $ref: '#/components/schemas/Discount'
+          readOnly: true
+        category_id:
+          type: array
+          items:
+            type: integer
+            minimum: 1
+          writeOnly: true
+        discount_id:
+          type: integer
+          writeOnly: true
+        name:
+          type: string
+          maxLength: 50
+        description:
+          type: string
+          maxLength: 100
+        quantity:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+        price:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+      required:
+      - category_id
+      - description
+      - discount_id
+      - id
+      - name
+      - price
+      - product_category
+      - product_discount
+      - quantity
+    StaffUser:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        username:
+          type: string
+          maxLength: 20
+        email:
+          type: string
+          format: email
+          maxLength: 127
+        first_name:
+          type: string
+          maxLength: 50
+        last_name:
+          type: string
+          maxLength: 50
+        password:
+          type: string
+          writeOnly: true
+        birthdate:
+          type: string
+          format: date
+        is_active:
+          type: boolean
+          readOnly: true
+        is_staff:
+          type: boolean
+          default: true
+        is_superuser:
+          type: boolean
+          readOnly: true
+        date_joined:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - birthdate
+      - date_joined
+      - email
+      - first_name
+      - id
+      - is_active
+      - is_superuser
+      - last_name
+      - password
+      - username
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        username:
+          type: string
+          maxLength: 20
+        email:
+          type: string
+          format: email
+          maxLength: 127
+        first_name:
+          type: string
+          maxLength: 50
+        last_name:
+          type: string
+          maxLength: 50
+        password:
+          type: string
+          writeOnly: true
+        birthdate:
+          type: string
+          format: date
+        is_active:
+          type: boolean
+          readOnly: true
+        is_staff:
+          type: boolean
+          readOnly: true
+        is_superuser:
+          type: boolean
+          readOnly: true
+        date_joined:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - birthdate
+      - date_joined
+      - email
+      - first_name
+      - id
+      - is_active
+      - is_staff
+      - is_superuser
+      - last_name
+      - password
+      - username
+    Wishlist:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        user:
+          type: integer
+          readOnly: true
+        product:
+          type: integer
+      required:
+      - id
+      - product
+      - user
+    WishlistGet:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        product:
+          allOf:
+          - $ref: '#/components/schemas/Product'
+          readOnly: true
+        user:
+          type: integer
+          readOnly: true
+      required:
+      - id
+      - product
+      - user
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: sessionid
+    tokenAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: Token-based authentication with required prefix "Token"

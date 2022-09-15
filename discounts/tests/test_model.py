@@ -9,7 +9,7 @@ class DiscountTest(TestCase):
     def setUpTestData(cls) -> None:
         cls.discount_test = {
             "description": "lore ipsum est",
-            "discount_percent": fake.decimal()
+            "discount_percent": 10.5
         }
         cls.discount = Discount.objects.create(**cls.discount_test)
 

@@ -29,7 +29,7 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 
 DEBUG = True
 
-ALLOWED_HOSTS = ["tcm-m5.herokuapp.com", "localhost"]
+ALLOWED_HOSTS = ["tcm-m5.herokuapp.com", "127.0.0.1", "localhost"]
 
 
 # Application definition
@@ -48,6 +48,11 @@ INSTALLED_APPS = [
     "categories",
     "discounts",
     "products",
+    "cartproducts",
+    "wishlists",
+    "orders",
+    "order_details",
+    "drf_spectacular"
 ]
 
 MIDDLEWARE = [
@@ -136,7 +141,17 @@ USE_I18N = True
 
 USE_TZ = True
 
+REST_FRAMEWORK = {
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
+}
 
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'ECOMMERCE WORLD CUP 2022 API',
+    'DESCRIPTION': 'Projeto Ecommerce TCM M5 T10',
+    'VERSION': '1.0.0',
+    'SERVE_INCLUDE_SCHEMA': False,
+    # OTHER SETTINGS
+}
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 

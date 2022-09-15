@@ -16,3 +16,14 @@ class ProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
         fields ="__all__"
+
+
+class ProductDetailSerializer(serializers.ModelSerializer):
+    product_category = CategorySerializer(read_only=True, many=True)
+    product_discount = DiscountSerializer(read_only=True)
+    category_id = serializers.ListField(child=serializers.IntegerField(min_value=1), write_only=True)
+    discount_id = serializers.IntegerField(write_only=True)
+
+    class Meta:
+        model = Product
+        fields ="__all__"
