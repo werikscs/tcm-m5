@@ -1,10 +1,10 @@
-from django.test import TestCase
+from cartproducts.models import Cartproducts
+from carts.models import Cart
 from categories.models import Category
 from discounts.models import Discount
-from products.models import Product
-from carts.models import Cart
-from cartproducts.models import Cartproducts
+from django.test import TestCase
 from faker import Faker
+from products.models import Product
 
 fake = Faker()
 
@@ -28,7 +28,7 @@ class CartProductTest(TestCase):
         }
         cls.discount_test = {
             "description": "lore ipsum est",
-            "discount_percent": 10.5
+            "discount_percent": 0.5
         }
 
         cls.discount = Discount.objects.create(**cls.discount_test)
