@@ -1,6 +1,7 @@
 from django.test import TestCase
 from categories.models import Category
 from discounts.models import Discount
+
 from products.models import Product
 from faker import Faker
 
@@ -26,6 +27,7 @@ class ProductTest(TestCase):
         cls.category = Category.objects.create(**cls.category_test)
         cls.product = Product.objects.create(**cls.product_test, discount_id=cls.discount.id, category_id=cls.category.id)
 
+
     def test_product_fields(self):
 
         self.assertEqual(self.product.name, self.product_test["name"], 'verificando name')
@@ -40,3 +42,4 @@ class ProductTest(TestCase):
     def test_relation_with_category(self):
 
         self.assertIs(self.product.category, self.category, 'verificando relação product/category')
+
